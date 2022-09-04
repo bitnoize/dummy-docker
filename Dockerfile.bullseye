@@ -1,0 +1,19 @@
+
+FROM bitnoize/debian:bullseye
+
+ARG DEBIAN_FRONTEND=noninteractive
+
+RUN set -eux; \
+    # Debian packages
+    apt-get update -q; \
+    apt-get install -yq \
+        git gnupg rlwrap \
+        pandoc docx2txt xlsx2csv figlet \
+        bc sc ledger; \
+    # Clean-up
+    rm -rf /var/lib/apt/lists/*; \
+    # Smoke tests
+    ledger --version
+
+CMD ["bash"]
+
