@@ -1,5 +1,5 @@
 
-IMAGENAME := bitnoize/office
+IMAGENAME := ghcr.io/bitnoize/office
 
 .PHONY: help build rebuild push pull
 
@@ -9,29 +9,26 @@ help:
 	@echo "Makefile commands: build rebuild push pull"
 
 #build: export BUILD_OPTS := ...
-build: .build-bullseye
+build: .build-latest
 
 rebuild: export BUILD_OPTS := --pull --no-cache
-rebuild: .build-bullseye
+rebuild: .build-latest
 
-.build-bullseye:
+.build-latest:
 	docker build $(BUILD_OPTS) \
-		-t "$(IMAGENAME):bullseye" \
 		-t "$(IMAGENAME):latest" \
 		-f Dockerfile.bullseye \
 		.
 
 #push: export PUSH_OPTS := ...
-push: .push-bullseye
+push: .push-latest
 
-.push-bullseye:
-	docker push $(PUSH_OPTS) "$(IMAGENAME):bullseye"
+.push-latest:
 	docker push $(PUSH_OPTS) "$(IMAGENAME):latest"
 
 #pull: export PULL_OPTS := ...
-pull: .pull-bullseye
+pull: .pull-latest
 
-.pull-bullseye:
-	docker pull $(PULL_OPTS) "$(IMAGENAME):bullseye"
+.pull-latest:
 	docker pull $(PULL_OPTS) "$(IMAGENAME):latest"
 

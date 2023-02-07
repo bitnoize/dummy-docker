@@ -1,5 +1,5 @@
-office-docker
-=============
+Office
+------
 
-Dockerfile for Office Tools.
+Office related packages.
 

@@ -1,19 +1,36 @@
 
-FROM bitnoize/debian:bullseye
+FROM ghcr.io/bitnoize/debian:bullseye
 
 ARG DEBIAN_FRONTEND=noninteractive
+
+RUN set -eux; \
+    # Unprivileged user
+    groupadd -g 1000 office; \
+    useradd -M -d /var/lib/office -s /bin/bash -g 1000 -u 1000 office; \
+    usermod -a -G tty,staff office; \
+    mkdir -m 0750 /var/lib/office; \
+    chown office:office /var/lib/office
+
+COPY docker-entrypoint.sh /sbin/entrypoint.sh
+ENTRYPOINT ["entrypoint.sh"]
 
 RUN set -eux; \
     # Debian packages
     apt-get update -q; \
     apt-get install -yq \
-        git gnupg rlwrap \
-        pandoc docx2txt xlsx2csv figlet \
-        bc sc ledger; \
+        git gnupg \
+        zip unzip unrar p7zip-full xz-utils zstd \
+        ncal ledger pandoc xlsx2csv sc bc \
+        taskwarrior timewarrior tasksh; \
+    # Taskwarrior
+    update-alternatives --install /usr/bin/taskw taskw /usr/bin/task 1; \
     # Clean-up
-    rm -rf /var/lib/apt/lists/*; \
-    # Smoke tests
-    ledger --version
+    rm -rf \
+        /var/www/* \
+        /usr/share/doc/* \
+        /usr/share/info/* \
+        /usr/share/man/* \
+        /var/lib/apt/lists/*
 
 CMD ["bash"]
 
