@@ -19,7 +19,7 @@ RUN set -eux; \
     apt-get update -q; \
     apt-get install -yq \
         git gnupg \
-        zip unzip unrar p7zip-full xz-utils zstd \
+        zip unzip unrar-free p7zip-full xz-utils zstd \
         ncal ledger pandoc xlsx2csv sc bc \
         taskwarrior timewarrior tasksh; \
     # Taskwarrior
