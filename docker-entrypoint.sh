@@ -3,21 +3,21 @@
 set -e
 
 if [ "$(id -u)" = "0" ]; then
-  if [ -n "$UID" ] && [ ! "$UID" = "$(id office -u)" ]; then
-    usermod -u "$UID" office
+  if [ -n "$UID" ] && [ ! "$UID" = "$(id dummy -u)" ]; then
+    usermod -u "$UID" dummy
   fi
 
-  if [ -n "$GID" ] && [ ! "$GID" = "$(id office -g)" ]; then
-    groupmod -g "$GID" office
+  if [ -n "$GID" ] && [ ! "$GID" = "$(id dummy -g)" ]; then
+    groupmod -g "$GID" dummy
   fi
 
-  chown office:office /var/lib/office
+  chown dummy:dummy /var/lib/dummy
 
   if [ -d "/lib/entrypoint" ]; then
     run-parts -v --regex '.*sh$' /lib/entrypoint
   fi
 
-  exec gosu office "$@"
+  exec gosu dummy "$@"
 else
   exec "$@"
 fi

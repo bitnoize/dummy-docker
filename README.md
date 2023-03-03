@@ -1,5 +1,5 @@
-Office
+Person
 ------
 
-Office related packages.
+Person related packages.
 
