@@ -1,7 +1,7 @@
 
-FROM ghcr.io/bitnoize/debian:bullseye
+FROM ghcr.io/bitnoize/debian:bookworm
 
-LABEL org.opencontainers.image.source=https://github.com/bitnoize/person-docker
+LABEL org.opencontainers.image.source=https://github.com/bitnoize/dummy-docker
 
 ARG DEBIAN_FRONTEND=noninteractive
 
